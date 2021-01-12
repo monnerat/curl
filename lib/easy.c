@@ -1156,6 +1156,11 @@ CURLcode curl_easy_recv(struct Curl_easy *data, void *buffer, size_t buflen,
   if(result)
     return result;
 
+  if(!data->conn)
+    /* on first invoke, the transfer has been detached from the connection and
+       needs to be reattached */
+    Curl_attach_connnection(data, c);
+
   *n = 0;
   result = Curl_read(data, sfd, buffer, buflen, &n1);
 
@@ -1185,6 +1190,11 @@ CURLcode curl_easy_send(struct Curl_easy *data, const void *buffer,
   result = easy_connection(data, &sfd, &c);
   if(result)
     return result;
+
+  if(!data->conn)
+    /* on first invoke, the transfer has been detached from the connection and
+       needs to be reattached */
+    Curl_attach_connnection(data, c);
 
   *n = 0;
   result = Curl_write(data, sfd, buffer, buflen, &n1);

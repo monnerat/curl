@@ -301,8 +301,12 @@ CURLcode Curl_write(struct Curl_easy *data,
 {
   ssize_t bytes_written;
   CURLcode result = CURLE_OK;
-  struct connectdata *conn = data->conn;
-  int num = (sockfd == conn->sock[SECONDARYSOCKET]);
+  struct connectdata *conn;
+  int num;
+  DEBUGASSERT(data);
+  DEBUGASSERT(data->conn);
+  conn = data->conn;
+  num = (sockfd == conn->sock[SECONDARYSOCKET]);
 
   bytes_written = conn->send[num](data, num, mem, len, &result);
 

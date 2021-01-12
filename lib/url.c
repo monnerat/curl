@@ -364,6 +364,9 @@ CURLcode Curl_close(struct Curl_easy **datap)
 
   Curl_expire_clear(data); /* shut off timers */
 
+  /* Detach connection if any is left. This should not be normal, but can be
+     the case for example with CONNECT_ONLY + recv/send (test 556) */
+  Curl_detach_connnection(data);
   m = data->multi;
   if(m)
     /* This handle is still part of a multi handle, take care of this first
