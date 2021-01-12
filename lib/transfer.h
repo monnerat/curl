@@ -55,7 +55,6 @@ bool Curl_meets_timecondition(struct Curl_easy *data, time_t timeofdoc);
 CURLcode Curl_get_upload_buffer(struct Curl_easy *data);
 
 CURLcode Curl_done_sending(struct Curl_easy *data,
-                           struct connectdata *conn,
                            struct SingleRequest *k);
 
 /* This sets up a forthcoming transfer */

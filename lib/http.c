@@ -3989,7 +3989,7 @@ CURLcode Curl_http_readwrite_headers(struct Curl_easy *data,
                 data->state.disableexpect = TRUE;
                 DEBUGASSERT(!data->req.newurl);
                 data->req.newurl = strdup(data->change.url);
-                Curl_done_sending(data, conn, k);
+                Curl_done_sending(data, k);
               }
               else if(data->set.http_keep_sending_on_error) {
                 infof(data, "HTTP error before end of send, keep sending\n");
@@ -4001,7 +4001,7 @@ CURLcode Curl_http_readwrite_headers(struct Curl_easy *data,
               else {
                 infof(data, "HTTP error before end of send, stop sending\n");
                 streamclose(conn, "Stop sending data before everything sent");
-                result = Curl_done_sending(data, conn, k);
+                result = Curl_done_sending(data, k);
                 if(result)
                   return result;
                 k->upload_done = TRUE;
