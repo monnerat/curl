@@ -550,28 +550,29 @@ static CURLcode ftp_readresp(struct Curl_easy *data,
                              int *ftpcode, /* return the ftp-code if done */
                              size_t *size) /* size of the response */
 {
-  struct connectdata *conn = data->conn;
-#ifdef HAVE_GSSAPI
-  char * const buf = data->state.buffer;
-#endif
   int code;
   CURLcode result = Curl_pp_readresp(data, sockfd, pp, &code, size);
 
-#if defined(HAVE_GSSAPI)
-  /* handle the security-oriented responses 6xx ***/
-  switch(code) {
-  case 631:
-    code = Curl_sec_read_msg(conn, buf, PROT_SAFE);
-    break;
-  case 632:
-    code = Curl_sec_read_msg(conn, buf, PROT_PRIVATE);
-    break;
-  case 633:
-    code = Curl_sec_read_msg(conn, buf, PROT_CONFIDENTIAL);
-    break;
-  default:
-    /* normal ftp stuff we pass through! */
-    break;
+#ifdef HAVE_GSSAPI
+  {
+    struct connectdata *conn = data->conn;
+    char * const buf = data->state.buffer;
+
+    /* handle the security-oriented responses 6xx ***/
+    switch(code) {
+    case 631:
+      code = Curl_sec_read_msg(conn, buf, PROT_SAFE);
+      break;
+    case 632:
+      code = Curl_sec_read_msg(conn, buf, PROT_PRIVATE);
+      break;
+    case 633:
+      code = Curl_sec_read_msg(conn, buf, PROT_CONFIDENTIAL);
+      break;
+    default:
+      /* normal ftp stuff we pass through! */
+      break;
+    }
   }
 #endif
 
