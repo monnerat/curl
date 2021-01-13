@@ -1710,7 +1710,7 @@ schannel_send(struct Curl_easy *data, int sockindex,
       }
       /* socket is writable */
 
-      result = Curl_write_plain(ptr, conn->sock[sockindex], ptr + written,
+      result = Curl_write_plain(data, conn->sock[sockindex], ptr + written,
                                 len - written, &this_write);
       if(result == CURLE_AGAIN)
         continue;
