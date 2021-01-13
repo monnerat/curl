@@ -81,7 +81,7 @@ bool Curl_ipv6works(struct Curl_easy *data)
       ipv6_works = 0;
     else {
       ipv6_works = 1;
-      close(s);
+      sclose(s);
     }
     return (ipv6_works>0)?TRUE:FALSE;
   }
