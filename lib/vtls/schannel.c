@@ -956,7 +956,7 @@ schannel_connect_step1(struct connectdata *conn, int sockindex)
                "sending %lu bytes...\n", outbuf.cbBuffer));
 
   /* send initial handshake data which is now stored in output buffer */
-  result = Curl_write_plain(conn, conn->sock[sockindex], outbuf.pvBuffer,
+  result = Curl_write_plain(data, conn->sock[sockindex], outbuf.pvBuffer,
                             outbuf.cbBuffer, &written);
   s_pSecFn->FreeContextBuffer(outbuf.pvBuffer);
   if((result != CURLE_OK) || (outbuf.cbBuffer != (size_t) written)) {
@@ -1153,7 +1153,7 @@ schannel_connect_step2(struct connectdata *conn, int sockindex)
                        "sending %lu bytes...\n", outbuf[i].cbBuffer));
 
           /* send handshake token to server */
-          result = Curl_write_plain(conn, conn->sock[sockindex],
+          result = Curl_write_plain(data, conn->sock[sockindex],
                                     outbuf[i].pvBuffer, outbuf[i].cbBuffer,
                                     &written);
           if((result != CURLE_OK) ||
@@ -1709,7 +1709,7 @@ schannel_send(struct connectdata *conn, int sockindex,
       }
       /* socket is writable */
 
-      result = Curl_write_plain(conn, conn->sock[sockindex], data + written,
+      result = Curl_write_plain(data, conn->sock[sockindex], data + written,
                                 len - written, &this_write);
       if(result == CURLE_AGAIN)
         continue;
@@ -2182,7 +2182,7 @@ static int Curl_schannel_shutdown(struct connectdata *conn, int sockindex)
     if((sspi_status == SEC_E_OK) || (sspi_status == SEC_I_CONTEXT_EXPIRED)) {
       /* send close message which is in output buffer */
       ssize_t written;
-      result = Curl_write_plain(conn, conn->sock[sockindex], outbuf.pvBuffer,
+      result = Curl_write_plain(data, conn->sock[sockindex], outbuf.pvBuffer,
                                 outbuf.cbBuffer, &written);
 
       s_pSecFn->FreeContextBuffer(outbuf.pvBuffer);

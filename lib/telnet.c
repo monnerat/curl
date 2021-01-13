@@ -1420,7 +1420,7 @@ static CURLcode telnet_do(struct Curl_easy *data, bool *done)
       }
       if(events.lNetworkEvents & FD_READ) {
         /* read data from network */
-        result = Curl_read(conn, sockfd, buf, data->set.buffer_size, &nread);
+        result = Curl_read(data, sockfd, buf, data->set.buffer_size, &nread);
         /* read would've blocked. Loop again */
         if(result == CURLE_AGAIN)
           break;
