@@ -534,11 +534,13 @@ static ssize_t oldap_recv(struct Curl_easy *data, int sockindex, char *buf,
       return -1;
     }
 
-    writeerr = Curl_client_write(data, CLIENTWRITE_BODY, (char *)bv.bv_val,
-                                 bv.bv_len);
-    if(writeerr) {
-      *err = writeerr;
-      return -1;
+    if(bv.bv_len) {
+      writeerr = Curl_client_write(data, CLIENTWRITE_BODY, (char *)bv.bv_val,
+                                   bv.bv_len);
+      if(writeerr) {
+        *err = writeerr;
+        return -1;
+      }
     }
 
     writeerr = Curl_client_write(data, CLIENTWRITE_BODY, (char *)"\n", 1);
