@@ -488,7 +488,7 @@ mark_as_advanced(CURL_DISABLE_SHA512_256)
 option(CURL_DISABLE_SHUFFLE_DNS "Disable shuffle DNS feature" OFF)
 mark_as_advanced(CURL_DISABLE_SHUFFLE_DNS)
 # Experimental
-option(CURL_DISABLE_SIEVE "Disable SIEVE" ON)
+option(CURL_DISABLE_SIEVE "Disable SIEVE" OFF)
 mark_as_advanced(CURL_DISABLE_SIEVE)
 option(CURL_DISABLE_SMB "Disable SMB" OFF)
 mark_as_advanced(CURL_DISABLE_SMB)
