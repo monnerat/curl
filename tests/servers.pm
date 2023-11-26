@@ -237,7 +237,7 @@ sub init_serverpidfile_hash {
         }
     }
     for my $proto (('tftp', 'sftp', 'socks', 'ssh', 'rtsp', 'httptls',
-                    'dict', 'smb', 'smbs', 'telnet', 'mqtt', 'mqtts',
+                    'dict', 'sieve', 'smb', 'smbs', 'telnet', 'mqtt', 'mqtts',
                     'https-mtls', 'dns')) {
         for my $ipvnum ((4, 6)) {
             for my $idnum ((1, 2)) {
@@ -424,7 +424,7 @@ sub stopserver {
     #
     # kill sockfilter processes for pingpong relative server
     #
-    if($server =~ /^(ftp|imap|pop3|smtp)s?(\d*)(-ipv6|)$/) {
+    if($server =~ /^(ftp|imap|pop3|sieve|smtp)s?(\d*)(-ipv6|)$/) {
         my $proto  = $1;
         my $idnum  = ($2 && ($2 > 1)) ? $2 : 1;
         $ipvnum = ($3 && ($3 =~ /6$/)) ? 6 : 4;
@@ -1025,6 +1025,7 @@ my %protofunc = ('http' => \&verifyhttp,
                  'ftp' => \&verifyftp,
                  'pop3' => \&verifyftp,
                  'imap' => \&verifyftp,
+                 'sieve' => \&verifyftp,
                  'smtp' => \&verifyftp,
                  'ftps' => \&verifyftp,
                  'pop3s' => \&verifyftp,
@@ -1428,13 +1429,13 @@ sub runhttptlsserver {
 }
 
 #######################################################################
-# start the pingpong server (FTP, POP3, IMAP, SMTP)
+# start the pingpong server (FTP, POP3, IMAP, SIEVE, SMTP)
 #
 sub runpingpongserver {
     my ($proto, $id, $verb, $ipv6) = @_;
 
     # Check the requested server
-    if($proto !~ /^(?:ftp|imap|pop3|smtp)$/) {
+    if($proto !~ /^(?:ftp|imap|pop3|sieve|smtp)$/) {
         logmsg "Unsupported protocol $proto!!\n";
         return (4, 0, 0);
     }
@@ -2281,7 +2282,7 @@ sub responsive_pingpong_server {
     my $idnum = ($id && ($id =~ /^(\d+)$/) && ($id > 1)) ? $id : 1;
     my $protoip = $proto . ($ipvnum == 6? '6': '');
 
-    if($proto =~ /^(?:ftp|imap|pop3|smtp)$/) {
+    if($proto =~ /^(?:ftp|imap|pop3|sieve|smtp)$/) {
         $port = protoport($protoip);
     }
     else {
@@ -2406,6 +2407,7 @@ sub startservers {
         if(($what eq "pop3") ||
            ($what eq "ftp") ||
            ($what eq "imap") ||
+           ($what eq "sieve") ||
            ($what eq "smtp")) {
             if($run{$what} &&
                !responsive_pingpong_server($what, "", $verbose)) {
@@ -3132,6 +3134,7 @@ sub subvariables {
                        'NOLISTEN',
                        'POP3', 'POP36', 'POP3S',
                        'RTSP', 'RTSP6',
+                       'SIEVE',
                        'SMB', 'SMBS',
                        'SMTP', 'SMTP6', 'SMTPS',
                        'SOCKS',
