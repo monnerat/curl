@@ -3,8 +3,8 @@ c: Copyright (C) Daniel Stenberg, <daniel@haxx.se>, et al.
 SPDX-License-Identifier: curl
 Long: location-trusted
 Help: As --location, but send secrets to other hosts
-Protocols: HTTP
-Category: http auth
+Protocols: HTTP SIEVE
+Category: http sieve auth
 Added: 7.10.4
 Multi: boolean
 See-also:

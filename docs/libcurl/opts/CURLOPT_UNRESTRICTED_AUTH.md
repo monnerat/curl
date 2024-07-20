@@ -81,4 +81,5 @@ int main(void)
 
 # RETURN VALUE
 
-Returns CURLE_OK if HTTP is supported, and CURLE_UNKNOWN_OPTION if not.
+Returns CURLE_OK if HTTP or SIEVE are supported, and CURLE_UNKNOWN_OPTION
+if not.
