@@ -14,6 +14,7 @@ Protocol:
   - FTP
   - IMAP
   - POP3
+  - SIEVE
   - SMTP
 Added-in: 7.1
 ---
@@ -87,6 +88,10 @@ Instead of LIST when issuing IMAP based requests.
 ## POP3
 
 Instead of LIST and RETR when issuing POP3 based requests.
+
+## SIEVE
+
+Instead of LISTSCRIPTS and PUTSCRIPT when issuing SIEVE based requests.
 
 For example:
 
