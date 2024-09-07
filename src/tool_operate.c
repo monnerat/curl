@@ -1066,6 +1066,10 @@ static CURLcode config2setopts(struct GlobalConfig *global,
   if(config->authtype)
     my_setopt_bitmask(curl, CURLOPT_HTTPAUTH, (long)config->authtype);
 
+  /* new in libcurl 8.xx.x */
+  if(config->safeauth)
+    my_setopt(curl, CURLOPT_SAFE_AUTH, (long) config->safeauth);
+
   my_setopt_slist(curl, CURLOPT_HTTPHEADER, config->headers);
 
   if(proto_http || proto_rtsp) {
