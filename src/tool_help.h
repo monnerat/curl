@@ -77,14 +77,15 @@ struct helptxt {
 #define CURLHELP_PROXY      (1 << 15)
 #define CURLHELP_SCP        (1 << 16)
 #define CURLHELP_SFTP       (1 << 17)
-#define CURLHELP_SMTP       (1 << 18)
-#define CURLHELP_SSH        (1 << 19)
-#define CURLHELP_TELNET     (1 << 20)
-#define CURLHELP_TFTP       (1 << 21)
-#define CURLHELP_TIMEOUT    (1 << 22)
-#define CURLHELP_TLS        (1 << 23)
-#define CURLHELP_UPLOAD     (1 << 24)
-#define CURLHELP_VERBOSE    (1 << 25)
+#define CURLHELP_SIEVE      (1 << 18)
+#define CURLHELP_SMTP       (1 << 19)
+#define CURLHELP_SSH        (1 << 20)
+#define CURLHELP_TELNET     (1 << 21)
+#define CURLHELP_TFTP       (1 << 22)
+#define CURLHELP_TIMEOUT    (1 << 23)
+#define CURLHELP_TLS        (1 << 24)
+#define CURLHELP_UPLOAD     (1 << 25)
+#define CURLHELP_VERBOSE    (1 << 26)
 
 #define CURLHELP_ALL        0xfffffffU
 

@@ -45,6 +45,7 @@ Unknown category provided, here is a list of all categories:
  proxy       Options for proxies
  scp         SCP protocol
  sftp        SFTP protocol
+ sieve       SIEVE protocol
  smtp        SMTP protocol
  ssh         SSH protocol
  telnet      TELNET protocol
