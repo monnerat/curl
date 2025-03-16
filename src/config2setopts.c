@@ -492,9 +492,6 @@ static CURLcode http_setopts(struct OperationConfig *config,
   CURLcode result;
   long postRedir = 0;
 
-  my_setopt_long(curl, CURLOPT_FOLLOWLOCATION, config->followlocation);
-  my_setopt_long(curl, CURLOPT_UNRESTRICTED_AUTH,
-                 config->unrestricted_auth);
   MY_SETOPT_STR(curl, CURLOPT_AWS_SIGV4, config->aws_sigv4);
   my_setopt_long(curl, CURLOPT_AUTOREFERER, config->autoreferer);
 
@@ -502,8 +499,6 @@ static CURLcode http_setopts(struct OperationConfig *config,
     my_setopt_slist(curl, CURLOPT_PROXYHEADER, config->proxyheaders);
     my_setopt_long(curl, CURLOPT_HEADEROPT, CURLHEADER_SEPARATE);
   }
-
-  my_setopt_long(curl, CURLOPT_MAXREDIRS, config->maxredirs);
 
   if(config->httpversion)
     my_setopt_enum(curl, CURLOPT_HTTP_VERSION, config->httpversion);
@@ -877,6 +872,12 @@ CURLcode config2setopts(struct OperationConfig *config,
     MY_SETOPT_STR(curl, CURLOPT_REFERER, config->referer);
     MY_SETOPT_STR(curl, CURLOPT_USERAGENT, config->useragent ?
                   config->useragent : CURL_NAME "/" CURL_VERSION);
+  }
+
+  if(use_proto == proto_http || use_proto == proto_https || proto_sieve) {
+    my_setopt_long(curl, CURLOPT_FOLLOWLOCATION, config->followlocation);
+    my_setopt_long(curl, CURLOPT_UNRESTRICTED_AUTH, config->unrestricted_auth);
+    my_setopt_long(curl, CURLOPT_MAXREDIRS, config->maxredirs);
   }
 
   if(use_proto == proto_http || use_proto == proto_https) {
