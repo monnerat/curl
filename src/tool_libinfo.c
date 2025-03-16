@@ -43,6 +43,7 @@ const char *proto_https = NULL;
 const char *proto_rtsp = NULL;
 const char *proto_scp = NULL;
 const char *proto_sftp = NULL;
+const char *proto_sieve = NULL;
 const char *proto_tftp = NULL;
 #ifndef CURL_DISABLE_IPFS
 const char *proto_ipfs = "ipfs";
@@ -61,6 +62,7 @@ static struct proto_name_tokenp {
   { "rtsp",     &proto_rtsp  },
   { "scp",      &proto_scp   },
   { "sftp",     &proto_sftp  },
+  { "sieve",    &proto_sieve },
   { "tftp",     &proto_tftp  },
   {  NULL,      NULL         }
 };
