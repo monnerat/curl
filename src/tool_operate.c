@@ -1063,13 +1063,19 @@ static CURLcode config2setopts(struct GlobalConfig *global,
     my_setopt_str(curl, CURLOPT_USERAGENT, config->useragent);
   }
 
+  if(proto_http || proto_sieve) {
+    my_setopt_long(curl, CURLOPT_FOLLOWLOCATION,
+              config->followlocation ? 1L : 0L);
+    my_setopt_long(curl, CURLOPT_UNRESTRICTED_AUTH,
+              config->unrestricted_auth ? 1L : 0L);
+
+    /* new in libcurl 7.5 */
+    my_setopt_long(curl, CURLOPT_MAXREDIRS, config->maxredirs);
+  }
+
   if(proto_http) {
     long postRedir = 0;
 
-    my_setopt_long(curl, CURLOPT_FOLLOWLOCATION,
-                   config->followlocation);
-    my_setopt_long(curl, CURLOPT_UNRESTRICTED_AUTH,
-                   config->unrestricted_auth);
     my_setopt_str(curl, CURLOPT_AWS_SIGV4, config->aws_sigv4);
     my_setopt_long(curl, CURLOPT_AUTOREFERER, config->autoreferer);
 
@@ -1078,9 +1084,6 @@ static CURLcode config2setopts(struct GlobalConfig *global,
       my_setopt_slist(curl, CURLOPT_PROXYHEADER, config->proxyheaders);
       my_setopt_long(curl, CURLOPT_HEADEROPT, CURLHEADER_SEPARATE);
     }
-
-    /* new in libcurl 7.5 */
-    my_setopt_long(curl, CURLOPT_MAXREDIRS, config->maxredirs);
 
     if(config->httpversion)
       my_setopt_enum(curl, CURLOPT_HTTP_VERSION, config->httpversion);
