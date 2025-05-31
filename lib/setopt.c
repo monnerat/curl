@@ -895,6 +895,13 @@ static CURLcode setopt_long(struct Curl_easy *data, CURLoption option,
       return result;
     s->maxconnects = (unsigned int)arg;
     break;
+  case CURLOPT_SAFE_AUTH:
+    /*
+     * Disable unsafe authentication mechanisms (those that transfer clear
+     * credentials).
+     */
+    data->set.safe_auth = (unsigned short) uarg;
+    break;
   case CURLOPT_SERVER_RESPONSE_TIMEOUT:
     return setopt_set_timeout_sec(&s->server_response_timeout, arg);
 
