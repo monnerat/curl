@@ -39,6 +39,7 @@
 #include "cfilters.h"
 #include "connect.h"
 #include "curlx/timeval.h"
+#include "vauth/vauth.h"
 #include "socks.h"
 #include "multiif.h" /* for getsock macros */
 #include "curlx/inet_pton.h"
@@ -692,6 +693,8 @@ CONNECT_AUTH_INIT:
     /* Needs username and password */
     size_t proxy_user_len, proxy_password_len;
     if(sx->proxy_user && sx->proxy_password) {
+      if(!Curl_auth_use_unsafe(data, TRUE))
+        return CURLPX_NO_AUTH;
       proxy_user_len = strlen(sx->proxy_user);
       proxy_password_len = strlen(sx->proxy_password);
     }
