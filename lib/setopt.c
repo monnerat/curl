@@ -521,6 +521,13 @@ static CURLcode setopt_long(struct Curl_easy *data, CURLoption option,
      */
     data->set.get_filetime = enabled;
     break;
+  case CURLOPT_SAFE_AUTH:
+    /*
+     * Disable unsafe authentication mechanisms (those that transfer clear
+     * credentials).
+     */
+    data->set.safe_auth = (unsigned short) uarg;
+    break;
   case CURLOPT_SERVER_RESPONSE_TIMEOUT:
     /*
      * Option that specifies how quickly a server response must be obtained

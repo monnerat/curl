@@ -227,6 +227,7 @@ struct OperationConfig {
   long happy_eyeballs_timeout_ms; /* happy eyeballs timeout in milliseconds.
                                      0 is valid. default: CURL_HET_DEFAULT. */
   unsigned long timecond;
+  unsigned long safeauth;   /* Unsafe authentication mechs disabling flags. */
   HttpReq httpreq;
   long proxyver;             /* set to CURLPROXY_HTTP* define */
   int ftp_ssl_ccc_mode;
