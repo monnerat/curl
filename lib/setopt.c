@@ -668,33 +668,6 @@ static CURLcode setopt_long(struct Curl_easy *data, CURLoption option,
     data->set.http_transfer_encoding = enabled;
     break;
 
-  case CURLOPT_FOLLOWLOCATION:
-    /*
-     * Follow Location: header hints on an HTTP-server.
-     */
-    if(uarg > 3)
-      return CURLE_BAD_FUNCTION_ARGUMENT;
-    data->set.http_follow_mode = (unsigned char)uarg;
-    break;
-
-  case CURLOPT_UNRESTRICTED_AUTH:
-    /*
-     * Send authentication (user+password) when following locations, even when
-     * hostname changed.
-     */
-    data->set.allow_auth_to_other_hosts = enabled;
-    break;
-
-  case CURLOPT_MAXREDIRS:
-    /*
-     * The maximum amount of hops you allow curl to follow Location:
-     * headers. This should mostly be used to detect never-ending loops.
-     */
-    if(arg < -1)
-      return CURLE_BAD_FUNCTION_ARGUMENT;
-    data->set.maxredirs = arg;
-    break;
-
   case CURLOPT_POSTREDIR:
     /*
      * Set the behavior of POST when redirecting
@@ -759,6 +732,35 @@ static CURLcode setopt_long(struct Curl_easy *data, CURLoption option,
     data->set.http09_allowed = enabled;
     break;
 #endif /* ! CURL_DISABLE_HTTP */
+
+#if !defined(CURL_DISABLE_HTTP) || !defined(CURL_DISABLE_SIEVE)
+  case CURLOPT_FOLLOWLOCATION:
+    /*
+     * Follow Location: header hints on an HTTP-server.
+     */
+    if(uarg > 3)
+      return CURLE_BAD_FUNCTION_ARGUMENT;
+    data->set.http_follow_mode = (unsigned char)uarg;
+    break;
+
+  case CURLOPT_UNRESTRICTED_AUTH:
+    /*
+     * Send authentication (user+password) when following locations, even when
+     * hostname changed.
+     */
+    data->set.allow_auth_to_other_hosts = enabled;
+    break;
+
+  case CURLOPT_MAXREDIRS:
+    /*
+     * The maximum amount of hops you allow curl to follow Location:
+     * headers. This should mostly be used to detect never-ending loops.
+     */
+    if(arg < -1)
+      return CURLE_BAD_FUNCTION_ARGUMENT;
+    data->set.maxredirs = arg;
+    break;
+#endif /* !defined(CURL_DISABLE_HTTP) || !defined(CURL_DISABLE_SIEVE) */
 
 #ifndef CURL_DISABLE_MIME
   case CURLOPT_MIME_OPTIONS:
