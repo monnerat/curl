@@ -239,6 +239,7 @@ LIB_CFILES =         \
   setopt.c           \
   sha256.c           \
   share.c            \
+  sieve.c            \
   slist.c            \
   smb.c              \
   smtp.c             \
@@ -373,6 +374,7 @@ LIB_HFILES =         \
   setup-win32.h      \
   share.h            \
   sigpipe.h          \
+  sieve.h            \
   slist.h            \
   smb.h              \
   smtp.h             \
