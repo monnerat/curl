@@ -37,6 +37,7 @@ asynch
 AsynchDNS
 atime
 auth
+authzid
 autobuild
 autobuilds
 Autoconf
@@ -83,6 +84,7 @@ Caddy
 calloc
 CAPA
 capath
+CAPB
 CCC
 CDN
 CentOS
@@ -98,6 +100,7 @@ CharConv
 charset
 charsets
 checkdocs
+CHECKSCRIPT
 checksrc
 checksums
 chgrp
@@ -174,6 +177,7 @@ decrypt
 decrypting
 deepcode
 DELE
+DELETESCRIPT
 DER
 dereference
 dereferences
@@ -330,6 +334,7 @@ HackerOne's
 HAProxy
 HardenedBSD
 Hards
+HAVESPACE
 Haxx
 haxx
 Heimdal
@@ -466,6 +471,7 @@ libzstd
 LineageOS
 linter
 linux
+LISTSCRIPTS
 lldb
 ln
 localhost
@@ -487,6 +493,7 @@ Makefile
 makefiles
 malloc
 mallocs
+ManageSieve
 manpage
 manpages
 maprintf
@@ -662,6 +669,7 @@ pthreads
 PTR
 ptr
 punycode
+PUTSCRIPT
 PWD
 pwd
 py
@@ -697,6 +705,7 @@ Referer
 referer
 reinitializes
 Relatedly
+RENAMESCRIPT
 repo
 reprioritized
 resending
@@ -753,6 +762,7 @@ SecTrust
 SEK
 selectable
 Serv
+SETACTIVE
 setopt
 setsockopt
 setuid
