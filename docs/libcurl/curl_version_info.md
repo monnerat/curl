@@ -264,7 +264,7 @@ supports IPv6
 
 *features* mask bit: CURL_VERSION_KERBEROS5
 
-supports Kerberos V5 authentication for FTP, IMAP, LDAP, POP3, SMTP and
+supports Kerberos V5 authentication for FTP, IMAP, LDAP, POP3, SIEVE, SMTP and
 SOCKSv5 proxy.
 
 ## `Largefile`

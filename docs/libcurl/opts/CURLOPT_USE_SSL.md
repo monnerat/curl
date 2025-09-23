@@ -13,6 +13,7 @@ Protocol:
   - SMTP
   - POP3
   - IMAP
+  - SIEVE
 Added-in: 7.17.0
 ---
 

@@ -10,6 +10,10 @@ See-also:
   - CURLOPT_USERPWD (3)
 Protocol:
   - IMAP
+  - LDAP
+  - POP3
+  - SIEVE
+  - SMTP
 Added-in: 7.66.0
 ---
 
@@ -45,6 +49,8 @@ option.
 
 Using this option multiple times makes the last set string override the
 previous ones. Set it to NULL to disable its use again.
+
+Specifying an owner in a SIEVE URL's path supersedes this option.
 
 # DEFAULT
 
