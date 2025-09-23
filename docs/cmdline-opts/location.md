@@ -4,8 +4,8 @@ SPDX-License-Identifier: curl
 Long: location
 Short: L
 Help: Follow redirects
-Protocols: HTTP
-Category: http
+Protocols: HTTP SIEVE
+Category: http sieve
 Added: 4.9
 Multi: boolean
 See-also:
@@ -44,3 +44,6 @@ The method set with --request overrides the method curl would otherwise select
 to use.
 
 Restrict which protocols a redirect is accepted to follow with --proto-redir.
+
+If SSL/TLS is enabled and requested, SIEVE ignores this option when the
+server requests a redirection before the secure session is established.

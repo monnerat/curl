@@ -13,6 +13,7 @@ See-also:
   - CURLOPT_UNRESTRICTED_AUTH (3)
 Protocol:
   - HTTP
+  - SIEVE
 Added-in: 7.1
 ---
 
@@ -31,7 +32,8 @@ CURLcode curl_easy_setopt(CURL *handle, CURLOPT_FOLLOWLOCATION, long mode);
 # DESCRIPTION
 
 This option tells the library to follow `Location:` header redirects that an
-HTTP server sends in a 30x response. The `Location:` header can specify a
+HTTP server sends in a 30x response or the referral response code for the
+SIEVE protocol. The `Location:` header can specify a
 relative or an absolute URL to follow. The long parameter *mode* instructs how
 libcurl should act on subsequent requests.
 
@@ -123,6 +125,9 @@ otherwise select internally.
 Setting the CURLFOLLOW_OBEYCODE bit makes libcurl *not* use the custom set
 method after redirects for 301, 302 and 303 responses. Unless the
 CURLOPT_POSTREDIR(3) bits are set for those status codes.
+
+If SSL/TLS is enabled and requested, SIEVE ignores this option when the
+server requests a redirection before the secure session is established.
 
 # DEFAULT
 
