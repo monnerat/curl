@@ -524,6 +524,15 @@ static CURLcode setopt_bool(struct Curl_easy *data, CURLoption option,
      */
     s->get_filetime = enabled;
     break;
+#if !defined(CURL_DISABLE_HTTP) || !defined(CURL_DISABLE_SIEVE)
+  case CURLOPT_UNRESTRICTED_AUTH:
+    /*
+     * Send authentication (user+password) when following locations, even when
+     * hostname changed.
+     */
+    s->allow_auth_to_other_hosts = enabled;
+    break;
+#endif
 #ifndef CURL_DISABLE_HTTP
   case CURLOPT_HTTP09_ALLOWED:
     s->http09_allowed = enabled;
@@ -548,13 +557,6 @@ static CURLcode setopt_bool(struct Curl_easy *data, CURLoption option,
 
   case CURLOPT_TRANSFER_ENCODING:
     s->http_transfer_encoding = enabled;
-    break;
-  case CURLOPT_UNRESTRICTED_AUTH:
-    /*
-     * Send authentication (user+password) when following locations, even when
-     * hostname changed.
-     */
-    s->allow_auth_to_other_hosts = enabled;
     break;
 
   case CURLOPT_HTTP_TRANSFER_DECODING:
@@ -954,7 +956,8 @@ static CURLcode setopt_long(struct Curl_easy *data, CURLoption option,
 
     s->postfieldsize = arg;
     break;
-#ifndef CURL_DISABLE_HTTP
+
+#if !defined(CURL_DISABLE_HTTP) || !defined(CURL_DISABLE_SIEVE)
   case CURLOPT_FOLLOWLOCATION:
     if(uarg > 3)
       return CURLE_BAD_FUNCTION_ARGUMENT;
@@ -967,7 +970,9 @@ static CURLcode setopt_long(struct Curl_easy *data, CURLoption option,
       return result;
     s->maxredirs = (short)arg;
     break;
+#endif
 
+#ifndef CURL_DISABLE_HTTP
   case CURLOPT_POSTREDIR:
     if(arg < CURL_REDIR_GET_ALL)
       /* no return error on too high numbers since the bitmask could be
