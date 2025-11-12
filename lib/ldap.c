@@ -89,6 +89,7 @@
 #include "progress.h"
 #include "transfer.h"
 #include "curlx/strparse.h"
+#include "vauth/vauth.h"
 #include "curl_ldap.h"
 #include "curlx/multibyte.h"
 #include "curlx/base64.h"
@@ -474,6 +475,10 @@ static CURLcode ldap_do(struct Curl_easy *data, bool *done)
     goto quit;
   }
   else {
+    if(data->state.aptr.user && !Curl_auth_use_unsafe(data, FALSE)) {
+      result = CURLE_LOGIN_DENIED;
+      goto quit;
+    }
     server = ldap_init(host, (curl_ldap_num_t)ipquad.remote_port);
     if(!server) {
       failf(data, "LDAP local: Cannot connect to %s:%u",
