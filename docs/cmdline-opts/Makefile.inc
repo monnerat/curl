@@ -219,6 +219,7 @@ DPAGES = \
   proxy-ntlm.md \
   proxy-pass.md \
   proxy-pinnedpubkey.md \
+  proxy-safe-auth.md \
   proxy-service-name.md \
   proxy-ssl-allow-beast.md \
   proxy-ssl-auto-client-cert.md \
@@ -251,6 +252,7 @@ DPAGES = \
   retry-delay.md \
   retry-max-time.md \
   retry.md \
+  safe-auth.md \
   sasl-authzid.md \
   sasl-ir.md \
   service-name.md \
