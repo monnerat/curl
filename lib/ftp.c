@@ -52,6 +52,7 @@
 #include "ftplistparser.h"
 #include "curl_range.h"
 #include "strcase.h"
+#include "vauth/vauth.h"
 #include "vtls/vtls.h"
 #include "cfilters.h"
 #include "cf-socket.h"
@@ -2940,13 +2941,19 @@ static CURLcode ftp_state_user_resp(struct Curl_easy *data,
                                     int ftpcode)
 {
   CURLcode result = CURLE_OK;
+  struct connectdata *conn = data->conn;
 
   /* some need password anyway, and others return 2xx ignored */
   if((ftpcode == 331) && (ftpc->state == FTP_USER)) {
     /* 331 Password required for ...
        (the server requires to send the user's password too) */
-    result = Curl_pp_sendf(data, &ftpc->pp, "PASS %s",
-                           Curl_creds_passwd(data->conn->creds));
+    if(!Curl_auth_use_unsafe(data, FALSE) &&
+       Curl_creds_has_passwd(conn->creds) &&
+       strcmp(Curl_creds_user(conn->creds), CURL_DEFAULT_USER))
+      result = CURLE_LOGIN_DENIED;
+    else
+      result = Curl_pp_sendf(data, &ftpc->pp,
+                             "PASS %s", Curl_creds_passwd(conn->creds));
     if(!result)
       ftp_state(data, ftpc, FTP_PASS);
   }
