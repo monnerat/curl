@@ -75,6 +75,9 @@ TCHAR *Curl_auth_build_spn(const char *service, const char *host,
 /* This is used to test if the user contains a Windows domain name */
 bool Curl_auth_user_contains_domain(struct Curl_creds *creds);
 
+/* This is used to test if clear password authentication is allowed. */
+bool Curl_auth_use_unsafe(struct Curl_easy *data, bool proxy);
+
 /* This is used to generate a PLAIN cleartext message */
 CURLcode Curl_auth_create_plain_message(struct Curl_creds *creds,
                                         struct bufref *out);

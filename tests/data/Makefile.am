@@ -1731,7 +1731,27 @@ TESTCASES = \
   test1725 \
   test1740 \
   test1741 \
+  \
+  test1750 \
+  test1751 \
+  test1752 \
+  test1753 \
+  test1754 \
+  test1755 \
+  test1756 \
+  test1757 \
+  test1758 \
+  test1759 \
+  test1760 \
+  test1761 \
+  test1762 \
+  test1763 \
+  test1764 \
+  test1765 \
+  test1766 \
+  \
   test1791 \
+  \
   test1800 \
   test1801 \
   test1802 \
