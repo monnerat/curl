@@ -39,6 +39,7 @@
 #include "select.h"
 #include "cfilters.h"
 #include "connect.h"
+#include "vauth/vauth.h"
 #include "socks.h"
 #include "vdns/cf-dns.h"
 #include "curlx/inet_pton.h"
@@ -668,6 +669,8 @@ static CURLproxycode socks5_auth_init(struct Curl_cfilter *cf,
   CURLcode result;
 
   if(sx->creds) {
+    if(!Curl_auth_use_unsafe(data, TRUE))
+      return CURLPX_NO_AUTH;
     ulen = strlen(sx->creds->user);
     plen = strlen(sx->creds->passwd);
     /* the lengths must fit in a single byte */

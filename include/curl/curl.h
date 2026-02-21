@@ -857,6 +857,10 @@ typedef enum {
 #define CURLHTTPSIG_ED25519       1L
 #define CURLHTTPSIG_HMAC_SHA256   2L
 
+/* Bitmasks for CURLOPT_SAFE_AUTH. */
+#define CURLSAFE_AUTH         ((unsigned long) 1 << 0) /* No unsafe mechs */
+#define CURLSAFE_PROXYAUTH    ((unsigned long) 1 << 1) /* Same for proxy */
+
 /* all types supported by server */
 #define CURLSSH_AUTH_ANY       ((unsigned long)0xffffffff)
 #define CURLSSH_AUTH_NONE      0L        /* none allowed, silly but complete */
@@ -2285,6 +2289,9 @@ typedef enum {
 
   /* Space-separated list of components to sign for HTTP Message Signatures */
   CURLOPT(CURLOPT_HTTPSIG_HEADERS, CURLOPTTYPE_STRINGPOINT, 332),
+
+  /* Set secure authentication mechanisms flags. */
+  CURLOPT(CURLOPT_SAFE_AUTH, CURLOPTTYPE_LONG, 333),
 
   CURLOPT_LASTENTRY /* the last unused */
 } CURLoption;

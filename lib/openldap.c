@@ -43,6 +43,7 @@
 #include "url.h"
 #include "sendf.h"
 #include "curl_trc.h"
+#include "vauth/vauth.h"
 #include "vtls/vtls.h"
 #include "transfer.h"
 #include "curl_ldap.h"
@@ -353,6 +354,8 @@ static CURLcode oldap_perform_bind(struct Curl_easy *data, ldapstate newstate)
   passwd.bv_len = 0;
 
   if(conn->creds) {
+    if(!Curl_auth_use_unsafe(data, FALSE))
+      return CURLE_LOGIN_DENIED;
     binddn = Curl_creds_user(conn->creds);
     passwd.bv_val = CURL_UNCONST(Curl_creds_passwd(conn->creds));
     passwd.bv_len = strlen(passwd.bv_val);
