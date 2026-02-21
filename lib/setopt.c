@@ -1260,6 +1260,13 @@ static CURLcode setopt_long_misc(struct Curl_easy *data, CURLoption option,
   case CURLOPT_UPLOAD_FLAGS:
     s->upload_flags = (unsigned char)arg;
     break;
+  case CURLOPT_SAFE_AUTH:
+    /*
+     * Disable unsafe authentication mechanisms (those that transfer clear
+     * credentials).
+     */
+    s->safe_auth = (unsigned short) arg;
+    break;
 #ifndef CURL_DISABLE_MIME
   case CURLOPT_MIME_OPTIONS:
     s->mime_formescape = !!(arg & CURLMIMEOPT_FORMESCAPE);

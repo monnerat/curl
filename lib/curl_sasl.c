@@ -539,6 +539,10 @@ CURLcode Curl_sasl_start(struct SASL *sasl, struct Curl_easy *data,
   sctx.state1 = SASL_STOP;
   sctx.state2 = SASL_FINAL;
 
+  /* Handle unsafe mechanisms. */
+  if(!Curl_auth_use_unsafe(data, FALSE))
+    sctx.enabledmechs &= SASL_SAFE_MECHS;
+
   /* Calculate the supported authentication mechanism, by decreasing order of
      security, as well as the initial response where appropriate */
   if(sasl_choose_external(data, &sctx) ||

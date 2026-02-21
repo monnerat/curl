@@ -72,6 +72,7 @@
 #include "transfer.h"
 #include "curlx/strparse.h"
 #include "bufref.h"
+#include "vauth/vauth.h"
 #include "curlx/multibyte.h"
 #include "curlx/base64.h"
 #include "connect.h"
@@ -384,6 +385,10 @@ static CURLcode ldap_do(struct Curl_easy *data, bool *done)
   else if(data->set.use_ssl > CURLUSESSL_TRY) {
     failf(data, "LDAP local: explicit TLS not supported");
     result = CURLE_NOT_BUILT_IN;
+    goto quit;
+  }
+  else if(data->state.aptr.user && !Curl_auth_use_unsafe(data, FALSE)) {
+    result = CURLE_LOGIN_DENIED;
     goto quit;
   }
 

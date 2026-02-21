@@ -205,6 +205,7 @@ struct OperationConfig {
                                      0 is valid. default: CURL_HET_DEFAULT. */
   unsigned long timecond;
   long followlocation;      /* follow http redirects mode */
+  unsigned long safeauth;   /* Unsafe authentication mechs disabling flags. */
   HttpReq httpreq;
   long proxyver;             /* set to CURLPROXY_HTTP* define */
   long ftp_ssl_ccc_mode;

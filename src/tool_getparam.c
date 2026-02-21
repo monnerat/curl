@@ -260,6 +260,7 @@ static const struct LongShort aliases[]= {
   {"proxy-ntlm",                 ARG_BOOL, ' ', C_PROXY_NTLM},
   {"proxy-pass",                 ARG_STRG|ARG_CLEAR, ' ', C_PROXY_PASS},
   {"proxy-pinnedpubkey",         ARG_STRG|ARG_TLS, ' ', C_PROXY_PINNEDPUBKEY},
+  {"proxy-safe-auth",            ARG_BOOL, ' ', C_PROXY_SAFE_AUTH},
   {"proxy-service-name",         ARG_STRG, ' ', C_PROXY_SERVICE_NAME},
   {"proxy-ssl-allow-beast",      ARG_BOOL|ARG_TLS, ' ',
    C_PROXY_SSL_ALLOW_BEAST},
@@ -293,6 +294,7 @@ static const struct LongShort aliases[]= {
   {"retry-connrefused",          ARG_BOOL, ' ', C_RETRY_CONNREFUSED},
   {"retry-delay",                ARG_STRG, ' ', C_RETRY_DELAY},
   {"retry-max-time",             ARG_STRG, ' ', C_RETRY_MAX_TIME},
+  {"safe-auth",                  ARG_BOOL, ' ', C_SAFE_AUTH},
   {"sasl-authzid",               ARG_STRG, ' ', C_SASL_AUTHZID},
   {"sasl-ir",                    ARG_BOOL, ' ', C_SASL_IR},
   {"service-name",               ARG_STRG, ' ', C_SERVICE_NAME},
@@ -1880,6 +1882,12 @@ static ParameterError opt_bool(struct OperationConfig *config,
   case C_BASIC: /* --basic */
     togglebit(toggle, &config->authtype, CURLAUTH_BASIC);
     break;
+  case C_SAFE_AUTH: /* --safe-auth */
+    togglebit(toggle, &config->safeauth, CURLSAFE_AUTH);
+     break;
+  case C_PROXY_SAFE_AUTH: /* --proxy-safe-auth */
+    togglebit(toggle, &config->safeauth, CURLSAFE_PROXYAUTH);
+     break;
 #ifdef USE_WATT32
   case C_WDEBUG: /* --wdebug */
     dbug_init();

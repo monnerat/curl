@@ -24,6 +24,7 @@
 #include "../curl_setup.h"
 
 #include "vauth.h"
+#include "../cfilters.h"
 #include "../curlx/multibyte.h"
 #include "../url.h"
 
@@ -144,6 +145,36 @@ bool Curl_auth_allowed_to_host(struct Curl_easy *data)
           curl_strequal(data->state.first_host, conn->host.name) &&
           (data->state.first_remote_port == conn->remote_port) &&
           (data->state.first_remote_protocol == conn->scheme->protocol));
+}
+
+/*
+ * Curl_auth_use_unsafe()
+ *
+ * This is used to test if clear password authentication is allowed.
+ *
+ * Parameters:
+ *
+ * data  [in] - The easy data structure.
+ * proxy [in] - TRUE if dealing with proxy authentication.
+ *
+ * Returns TRUE if restriction applies.
+ */
+
+bool Curl_auth_use_unsafe(struct Curl_easy *data, bool proxy)
+{
+  struct connectdata *conn = data->conn;
+
+  if(proxy) {
+#ifndef CURL_DISABLE_PROXY
+    if(conn->http_proxy.proxytype == CURLPROXY_HTTPS)
+      return TRUE;
+#endif
+    return data->set.safe_auth & CURLSAFE_PROXYAUTH ? FALSE : TRUE;
+  }
+
+  if(Curl_conn_is_ssl(conn, FIRSTSOCKET))
+    return TRUE;
+  return data->set.safe_auth & CURLSAFE_AUTH ? FALSE : TRUE;
 }
 
 #ifdef USE_NTLM

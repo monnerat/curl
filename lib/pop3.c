@@ -63,6 +63,7 @@
 #include "transfer.h"
 #include "escape.h"
 #include "pingpong.h"
+#include "vauth/vauth.h"
 #include "vtls/vtls.h"
 #include "cfilters.h"
 #include "connect.h"
@@ -532,6 +533,9 @@ static CURLcode pop3_perform_user(struct Curl_easy *data,
 
     return result;
   }
+
+  if(!Curl_auth_use_unsafe(data, FALSE))
+    return CURLE_LOGIN_DENIED;
 
   /* Send the USER command */
   result = Curl_pp_sendf(data, &pop3c->pp, "USER %s",

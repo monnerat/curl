@@ -847,6 +847,10 @@ typedef enum {
 #define CURLAUTH_ANYSAFE      ((~(CURLAUTH_BASIC | CURLAUTH_DIGEST_IE)) & \
                                ((unsigned long)0xffffffff))
 
+/* Bitmasks for CURLOPT_SAFE_AUTH. */
+#define CURLSAFE_AUTH         ((unsigned long) 1 << 0) /* No unsafe mechs */
+#define CURLSAFE_PROXYAUTH    ((unsigned long) 1 << 1) /* Same for proxy */
+
 /* all types supported by server */
 #define CURLSSH_AUTH_ANY       ((unsigned long)0xffffffff)
 #define CURLSSH_AUTH_NONE      0L        /* none allowed, silly but complete */
@@ -2256,6 +2260,9 @@ typedef enum {
 
   /* set TLS supported signature algorithms */
   CURLOPT(CURLOPT_SSL_SIGNATURE_ALGORITHMS, CURLOPTTYPE_STRINGPOINT, 328),
+
+  /* Set secure authentication mechanisms flags. */
+  CURLOPT(CURLOPT_SAFE_AUTH, CURLOPTTYPE_LONG, 329),
 
   CURLOPT_LASTENTRY /* the last unused */
 } CURLoption;

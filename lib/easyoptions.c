@@ -273,6 +273,7 @@ const struct curl_easyoption Curl_easyopts[] = {
   { "RTSP_SESSION_ID", CURLOPT_RTSP_SESSION_ID, CURLOT_STRING, 0 },
   { "RTSP_STREAM_URI", CURLOPT_RTSP_STREAM_URI, CURLOT_STRING, 0 },
   { "RTSP_TRANSPORT", CURLOPT_RTSP_TRANSPORT, CURLOT_STRING, 0 },
+  { "SAFE_AUTH", CURLOPT_SAFE_AUTH, CURLOT_LONG, 0 },
   { "SASL_AUTHZID", CURLOPT_SASL_AUTHZID, CURLOT_STRING, 0 },
   { "SASL_IR", CURLOPT_SASL_IR, CURLOT_LONG, 0 },
   { "SEEKDATA", CURLOPT_SEEKDATA, CURLOT_CBPTR, 0 },
@@ -385,6 +386,6 @@ const struct curl_easyoption Curl_easyopts[] = {
  */
 int Curl_easyopts_check(void)
 {
-  return (CURLOPT_LASTENTRY % 10000) != (328 + 1);
+  return (CURLOPT_LASTENTRY % 10000) != (329 + 1);
 }
 #endif

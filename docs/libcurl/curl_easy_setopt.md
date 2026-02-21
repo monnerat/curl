@@ -971,6 +971,10 @@ RTSP stream URI. See CURLOPT_RTSP_STREAM_URI(3)
 
 RTSP Transport: header. See CURLOPT_RTSP_TRANSPORT(3)
 
+## CURLOPT_SAFE_AUTH
+
+Disable clear password. See CURLOPT_SAFE_AUTH(3)
+
 ## CURLOPT_SASL_AUTHZID
 
 SASL authorization identity (identity to act as). See CURLOPT_SASL_AUTHZID(3)
