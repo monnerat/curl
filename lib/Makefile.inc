@@ -244,6 +244,7 @@ LIB_CFILES =         \
   sendf.c            \
   setopt.c           \
   sha256.c           \
+  sieve.c            \
   slist.c            \
   smb.c              \
   smtp.c             \
@@ -373,6 +374,7 @@ LIB_HFILES =         \
   setup-vms.h        \
   setup-win32.h      \
   sigpipe.h          \
+  sieve.h            \
   slist.h            \
   smb.h              \
   smtp.h             \

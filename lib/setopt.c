@@ -507,6 +507,15 @@ static CURLcode setopt_long_bool(struct Curl_easy *data, CURLoption option,
      */
     s->get_filetime = enabled;
     break;
+#if !defined(CURL_DISABLE_HTTP) || !defined(CURL_DISABLE_SIEVE)
+  case CURLOPT_UNRESTRICTED_AUTH:
+    /*
+     * Send authentication (user+password) when following locations, even when
+     * hostname changed.
+     */
+    s->allow_auth_to_other_hosts = enabled;
+    break;
+#endif
 #ifndef CURL_DISABLE_HTTP
   case CURLOPT_HTTP09_ALLOWED:
     s->http09_allowed = enabled;
@@ -530,13 +539,6 @@ static CURLcode setopt_long_bool(struct Curl_easy *data, CURLoption option,
     break;
   case CURLOPT_TRANSFER_ENCODING:
     s->http_transfer_encoding = enabled;
-    break;
-  case CURLOPT_UNRESTRICTED_AUTH:
-    /*
-     * Send authentication (user+password) when following locations, even when
-     * hostname changed.
-     */
-    s->allow_auth_to_other_hosts = enabled;
     break;
   case CURLOPT_HTTP_TRANSFER_DECODING:
     /*
@@ -861,6 +863,19 @@ static CURLcode setopt_long_net(struct Curl_easy *data, CURLoption option,
     return setopt_set_timeout_sec(&s->server_response_timeout, arg);
   case CURLOPT_SERVER_RESPONSE_TIMEOUT_MS:
     return setopt_set_timeout_ms(&s->server_response_timeout, arg);
+#if !defined(CURL_DISABLE_HTTP) || !defined(CURL_DISABLE_SIEVE)
+  case CURLOPT_FOLLOWLOCATION:
+    if((unsigned long) arg > 3)
+      result = CURLE_BAD_FUNCTION_ARGUMENT;
+    else
+      s->http_follow_mode = (unsigned char) arg;
+    break;
+  case CURLOPT_MAXREDIRS:
+    result = value_range(&arg, -1, -1, 0x7fff);
+    if(!result)
+      s->maxredirs = (short) arg;
+    break;
+#endif
   case CURLOPT_LOW_SPEED_LIMIT:
     if(arg < 0)
       result = CURLE_BAD_FUNCTION_ARGUMENT;
@@ -1069,17 +1084,6 @@ static CURLcode setopt_long_http(struct Curl_easy *data, CURLoption option,
   struct UserDefined *s = &data->set;
 
   switch(option) {
-  case CURLOPT_FOLLOWLOCATION:
-    if((unsigned long)arg > 3)
-      result = CURLE_BAD_FUNCTION_ARGUMENT;
-    else
-      s->http_follow_mode = (unsigned char)arg;
-    break;
-  case CURLOPT_MAXREDIRS:
-    result = value_range(&arg, -1, -1, 0x7fff);
-    if(!result)
-      s->maxredirs = (short)arg;
-    break;
   case CURLOPT_POSTREDIR:
     if(arg < CURL_REDIR_GET_ALL)
       result = CURLE_BAD_FUNCTION_ARGUMENT;
@@ -2358,7 +2362,7 @@ static CURLcode setopt_cptr(struct Curl_easy *data, CURLoption option,
     }
     else
       /* make a NULL argument reset to default */
-      s->allowed_protocols = (curl_prot_t)CURLPROTO_ALL;
+      s->allowed_protocols = (curl_prot_t) -1; /* Real CURLPROTO_ALL */
     break;
   case CURLOPT_REDIR_PROTOCOLS_STR:
     if(ptr) {

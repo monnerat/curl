@@ -201,7 +201,7 @@ remove or add would then only ask for the action to get started and then
 
 The multi interface treats the authentication process as part of the connect
 phase. As such any failures during authentication does not trigger the
-relevant QUIT or LOGOFF for protocols such as IMAP, POP3 and SMTP.
+relevant QUIT or LOGOFF for protocols such as IMAP, POP3, SIEVE and SMTP.
 
 ## Edge-triggered sockets should work
 

@@ -55,6 +55,7 @@ static const char *scheme[] = {
   "rtsp",
   "scp",
   "sftp",
+  "sieve",
   "smb",
   "smbs",
   "smtp",
