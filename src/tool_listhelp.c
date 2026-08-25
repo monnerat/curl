@@ -386,14 +386,14 @@ const struct helptxt helptext[] = {
     CURLHELP_CONNECTION },
   { "-L, --location",
     "Follow redirects",
-    CURLHELP_HTTP },
+    CURLHELP_HTTP | CURLHELP_SIEVE },
   { "    --location-trusted",
     "As --location, but send secrets to other hosts",
-    CURLHELP_HTTP | CURLHELP_AUTH },
+    CURLHELP_HTTP | CURLHELP_SIEVE | CURLHELP_AUTH },
   { "    --login-options <options>",
     "Server login options",
-    CURLHELP_IMAP | CURLHELP_POP3 | CURLHELP_SMTP | CURLHELP_AUTH |
-    CURLHELP_LDAP },
+    CURLHELP_IMAP | CURLHELP_POP3 | CURLHELP_SMTP | CURLHELP_SIEVE |
+    CURLHELP_AUTH | CURLHELP_LDAP },
   { "    --mail-auth <address>",
     "Originator address of the original email",
     CURLHELP_SMTP },
@@ -414,7 +414,7 @@ const struct helptxt helptext[] = {
     CURLHELP_CONNECTION | CURLHELP_FTP | CURLHELP_HTTP | CURLHELP_MQTT },
   { "    --max-redirs <num>",
     "Maximum number of redirects allowed",
-    CURLHELP_HTTP },
+    CURLHELP_HTTP | CURLHELP_SIEVE },
   { "-m, --max-time <seconds>",
     "Maximum time allowed for transfer",
     CURLHELP_CONNECTION | CURLHELP_TIMEOUT },
@@ -471,8 +471,8 @@ const struct helptxt helptext[] = {
     CURLHELP_DEPRECATED },
   { "    --oauth2-bearer <token>",
     "OAuth 2 Bearer Token",
-    CURLHELP_AUTH | CURLHELP_IMAP | CURLHELP_POP3 | CURLHELP_SMTP |
-    CURLHELP_LDAP | CURLHELP_HTTP },
+    CURLHELP_AUTH | CURLHELP_IMAP | CURLHELP_POP3 | CURLHELP_SIEVE |
+    CURLHELP_SMTP | CURLHELP_LDAP | CURLHELP_HTTP },
   { "    --out-null",
     "Discard response data into the void",
     CURLHELP_OUTPUT },
@@ -663,7 +663,7 @@ const struct helptxt helptext[] = {
   { "-X, --request <method>",
     "Specify request method to use",
     CURLHELP_CONNECTION | CURLHELP_POP3 | CURLHELP_FTP | CURLHELP_IMAP |
-    CURLHELP_SMTP },
+    CURLHELP_SMTP | CURLHELP_SIEVE },
   { "    --request-target <path>",
     "Specify the target for this request",
     CURLHELP_HTTP },
