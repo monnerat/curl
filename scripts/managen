@@ -255,6 +255,7 @@ my %protexists = (
     'POP3' => 1,
     'SCP' => 1,
     'SFTP' => 1,
+    'SIEVE' => 1,
     'SMTP' => 1,
     'SSL' => 2, # deprecated
     'TELNET' => 1,
