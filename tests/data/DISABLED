@@ -48,6 +48,11 @@
 1801
 #
 2043
+#
+# Sieve redirection with multiple requests would require the test server to
+# handle simultaneous connections.
+4945
+4946
 %if WinIDN
 165
 %endif
