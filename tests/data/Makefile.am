@@ -2092,6 +2092,60 @@ TESTCASES = \
   test4000 \
   test4001 \
   \
+  test4900 \
+  test4901 \
+  test4902 \
+  test4903 \
+  test4904 \
+  test4905 \
+  test4906 \
+  test4907 \
+  test4908 \
+  test4909 \
+  test4910 \
+  test4911 \
+  test4912 \
+  test4913 \
+  test4914 \
+  test4915 \
+  test4916 \
+  test4917 \
+  test4918 \
+  test4919 \
+  test4920 \
+  test4921 \
+  test4922 \
+  test4923 \
+  test4924 \
+  test4925 \
+  test4926 \
+  test4927 \
+  test4928 \
+  test4929 \
+  test4930 \
+  test4931 \
+  test4932 \
+  test4933 \
+  test4934 \
+  test4935 \
+  test4936 \
+  test4937 \
+  test4938 \
+  test4939 \
+  test4940 \
+  test4941 \
+  test4942 \
+  test4943 \
+  test4944 \
+  test4945 \
+  test4946 \
+  test4947 \
+  test4948 \
+  test4949 \
+  test4950 \
+  test4951 \
+  test4952 \
+  \
   test5000 \
   test5001 \
   test5002 \
