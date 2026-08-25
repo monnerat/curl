@@ -497,6 +497,7 @@ CURLcode Curl_pretransfer(struct Curl_easy *data)
   data->state.followlocation = 0; /* reset the location-follow counter */
   data->state.this_is_a_follow = FALSE; /* reset this */
   data->state.http_ignorecustom = FALSE; /* use custom HTTP method */
+  data->state.redir_protocols = data->set.redir_protocols;
   data->state.errorbuf = FALSE; /* no error has occurred */
 #ifndef CURL_DISABLE_HTTP
   Curl_http_neg_init(data, &data->state.http_neg);

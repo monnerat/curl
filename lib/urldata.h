@@ -584,6 +584,7 @@ struct UrlState {
   struct urlpieces up;
   struct bufref url;        /* work URL, initially copied from UserDefined */
   struct bufref referer;    /* referer string */
+  curl_prot_t redir_protocols; /* Allowed protocols while redirecting */
   struct curl_slist *resolve; /* set to point to the set.resolve list when
                                  this should be dealt with in pretransfer */
 #ifndef CURL_DISABLE_HTTP

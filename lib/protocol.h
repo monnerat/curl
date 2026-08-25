@@ -45,6 +45,7 @@ struct easy_pollset;
 #define PORT_IMAPS  993
 #define PORT_POP3   110
 #define PORT_POP3S  995
+#define PORT_SIEVE  4190
 #define PORT_SMB    445
 #define PORT_SMBS   445
 #define PORT_SMTP   25
@@ -64,6 +65,7 @@ struct easy_pollset;
 #define CURLPROTO_WSS    ((curl_prot_t)1 << 31)
 #define CURLPROTO_MQTTS  (1LL << 32)
 #define CURLPROTO_SOCKS  (1LL << 33)
+#define CURLPROTO_SIEVE  (1LL << 34)
 
 #define CURLPROTO_64ALL ((uint64_t)0xffffffffffffffff)
 
@@ -90,7 +92,7 @@ typedef curl_off_t curl_prot_t;
 #define PROTO_FAMILY_SSH  (CURLPROTO_SCP | CURLPROTO_SFTP)
 
 #if !defined(CURL_DISABLE_FTP) || defined(USE_SSH) || \
-  !defined(CURL_DISABLE_POP3)
+  !defined(CURL_DISABLE_POP3) || !defined(CURL_DISABLE_SIEVE)
 /* these protocols support CURLOPT_DIRLISTONLY */
 #define CURL_LIST_ONLY_PROTOCOL 1
 #endif
