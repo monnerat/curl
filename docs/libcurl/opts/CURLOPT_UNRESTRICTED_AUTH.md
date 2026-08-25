@@ -12,6 +12,7 @@ See-also:
   - CURLOPT_USERPWD (3)
 Protocol:
   - HTTP
+  - SIEVE
 Added-in: 7.10.4
 ---
 
