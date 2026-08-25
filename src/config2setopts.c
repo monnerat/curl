@@ -521,6 +521,19 @@ static CURLcode ssl_setopts(struct OperationConfig *config, CURL *curl)
   return CURLE_OK;
 }
 
+static CURLcode redir_setopts(struct OperationConfig *config, CURL *curl,
+                              const char *use_proto)
+{
+  if(use_proto != proto_http && use_proto != proto_https &&
+     use_proto != proto_sieve)
+    return CURLE_OK;
+
+  my_setopt_long(curl, CURLOPT_FOLLOWLOCATION, config->followlocation);
+  my_setopt_long(curl, CURLOPT_UNRESTRICTED_AUTH, config->unrestricted_auth);
+  my_setopt_long(curl, CURLOPT_MAXREDIRS, config->maxredirs);
+  return CURLE_OK;
+}
+
 static CURLcode cookie_setopts(struct OperationConfig *config, CURL *curl)
 {
   CURLcode result = CURLE_OK;
@@ -658,8 +671,6 @@ static CURLcode http_setopts(struct OperationConfig *config, CURL *curl,
   if(use_proto != proto_http && use_proto != proto_https)
     return CURLE_OK;
 
-  my_setopt_long(curl, CURLOPT_FOLLOWLOCATION, config->followlocation);
-  my_setopt_long(curl, CURLOPT_UNRESTRICTED_AUTH, config->unrestricted_auth);
 #ifndef CURL_DISABLE_AWS
   MY_SETOPT_STR(curl, CURLOPT_AWS_SIGV4, config->aws_sigv4);
 #endif
@@ -671,8 +682,6 @@ static CURLcode http_setopts(struct OperationConfig *config, CURL *curl,
   if(config->proxyheaders) {
     my_setopt_slist(curl, CURLOPT_PROXYHEADER, config->proxyheaders);
   }
-
-  my_setopt_long(curl, CURLOPT_MAXREDIRS, config->maxredirs);
 
   if(config->httpversion)
     my_setopt_enum(curl, CURLOPT_HTTP_VERSION, config->httpversion);
@@ -1225,6 +1234,8 @@ CURLcode config2setopts(struct OperationConfig *config,
     result = transfer_setopts(config, per, curl);
   if(!setopt_bad(result))
     result = protocol_setopts(config, per, curl, use_proto);
+  if(!setopt_bad(result))
+    result = redir_setopts(config, curl, use_proto);
   if(!setopt_bad(result))
     result = dns_and_network_setopts(config, per, curl);
   if(!setopt_bad(result))
