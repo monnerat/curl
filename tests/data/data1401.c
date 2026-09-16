@@ -22,8 +22,8 @@ int main(int argc, char *argv[])
   curl_easy_setopt(curl, CURLOPT_HTTPAUTH, (long)CURLAUTH_BASIC);
   curl_easy_setopt(curl, CURLOPT_HTTPHEADER, slist1);
   curl_easy_setopt(curl, CURLOPT_USERAGENT, "MyUA");
-  curl_easy_setopt(curl, CURLOPT_MAXREDIRS, 50L);
   curl_easy_setopt(curl, CURLOPT_COOKIE, "chocolate=chip");
+  curl_easy_setopt(curl, CURLOPT_MAXREDIRS, 50L);
   curl_easy_setopt(curl, CURLOPT_TCP_KEEPALIVE, 1L);
   curl_easy_setopt(curl, CURLOPT_PROTOCOLS_STR, "file,ftp,http");
 
