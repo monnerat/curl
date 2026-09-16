@@ -345,6 +345,9 @@ static const char * const supported_protocols[] = {
   "scp",
   "sftp",
 #endif
+#ifndef CURL_DISABLE_SIEVE
+  "sieve",
+#endif
 #ifndef CURL_DISABLE_SMTP
   "smtp",
 #endif

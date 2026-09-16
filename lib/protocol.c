@@ -35,6 +35,7 @@
 #include "curl_ldap.h"
 #include "mqtt.h"
 #include "pop3.h"
+#include "sieve.h"
 #include "rtsp.h"
 #include "smtp.h"
 #include "telnet.h"
@@ -307,6 +308,21 @@ const struct Curl_scheme Curl_scheme_scp = {
   PORT_SSH,                             /* defport */
 };
 
+const struct Curl_scheme Curl_scheme_sieve = {
+  "sieve",                              /* scheme */
+#ifdef CURL_DISABLE_SIEVE
+  ZERO_NULL,
+#else
+  &Curl_protocol_sieve,
+#endif
+  CURLPROTO_SIEVE,                      /* protocol */
+  CURLPROTO_SIEVE,                      /* family */
+  PROTOPT_CLOSEACTION |                 /* flags */
+  PROTOPT_URLOPTIONS |
+  PROTOPT_CONN_REUSE,
+  PORT_SIEVE,                           /* defport */
+};
+
 const struct Curl_scheme Curl_scheme_smtp = {
   "smtp",                           /* scheme */
 #ifdef CURL_DISABLE_SMTP
@@ -561,6 +577,8 @@ static const struct Curl_scheme *five_letter_scheme(const char *scheme)
         return &Curl_scheme_socks;
     }
   }
+  else if(curl_strnequal("sieve", scheme, 5))
+    return &Curl_scheme_sieve;
   return NULL;
 }
 

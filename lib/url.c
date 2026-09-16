@@ -110,6 +110,7 @@
 #include "curl_ldap.h"
 #include "vssh/ssh.h"
 #include "imap.h"
+#include "sieve.h"
 #include "url.h"
 #include "connect.h"
 #include "gopher.h"
@@ -1173,7 +1174,7 @@ static CURLcode url_set_conn_scheme(struct Curl_easy *data,
   if(scheme->run &&
      (data->set.allowed_protocols & scheme->protocol) &&
      (!data->state.this_is_a_follow ||
-       (data->set.redir_protocols & scheme->protocol))) {
+       (data->state.redir_protocols & scheme->protocol))) {
     conn->scheme = scheme;
     return CURLE_OK;
   }
