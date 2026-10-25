@@ -161,6 +161,10 @@ Disable the SHA-512/256 hash algorithm.
 
 Disable the shuffle DNS feature
 
+## `CURL_DISABLE_SIEVE`
+
+Disable the SIEVE protocol
+
 ## `CURL_DISABLE_SMTP`
 
 Disable the SMTP(S) protocols
